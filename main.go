@@ -6,7 +6,7 @@ import (
 )
 
 func main() {
-	meego.Run()
+	meego.Run(":9001")
 }
 
 func init() {
