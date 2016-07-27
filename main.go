@@ -1,7 +1,7 @@
 package main
 
 import (
-	"github.com/huangchao/meego"
+	"github.com/ftchao/meego"
 	"newbee/controllers"
 )
 
