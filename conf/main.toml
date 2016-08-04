@@ -1,0 +1,38 @@
+# This is a Server Config
+
+# mysql config
+[mysql]
+dsn = ['127.0.0.1:123']
+
+
+################################################################################
+# redis
+[redis]
+
+server = [
+    "192.168.255.56:6371",
+    "192.168.255.56:6372",
+    "192.168.255.56:6373",
+    "192.168.255.56:6374",
+    "192.168.255.56:6375",
+    "192.168.255.56:6376",
+    "192.168.255.56:6377",
+    "192.168.255.56:6378",
+    "192.168.255.56:6379",
+]
+
+[redis.auth]
+user = "root"
+pswd = ""
+
+# redis connect timeout (ms)
+[redis.connect]
+timeout=1000
+
+# redis write timeout (ms)
+[redis.write]
+timeout=500
+
+# redis read timeout (ms)
+[redis.read]
+timeout=500
