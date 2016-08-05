@@ -7,8 +7,9 @@ dsn = ['127.0.0.1:123']
 
 ################################################################################
 # redis
-[redis]
 
+# 默认节点
+[redis.default]
 server = [
     "192.168.255.56:6371",
     "192.168.255.56:6372",
@@ -21,18 +22,15 @@ server = [
     "192.168.255.56:6379",
 ]
 
-[redis.auth]
-user = "root"
-pswd = ""
-
 # redis connect timeout (ms)
-[redis.connect]
+[redis.default.connect]
 timeout=1000
 
 # redis write timeout (ms)
-[redis.write]
+[redis.default.write]
 timeout=500
 
 # redis read timeout (ms)
-[redis.read]
+[redis.default.read]
 timeout=500
+

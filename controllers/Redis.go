@@ -13,10 +13,16 @@ func HelloServer(w http.ResponseWriter, req *http.Request) {
 
 func RedisGet(w http.ResponseWriter, req *http.Request) {
 	rclient := redis.NewClient()
-	val := rclient.Abcc()
 
-	io.WriteString(w, "Redis, get!\n")
-	io.WriteString(w, val+"\n") // todo '+' 效率低
+	var val string
+	val, _ = rclient.Get("mykey_1")
+	io.WriteString(w, "mykey_1 = "+val+"\n")
+
+	val, _ = rclient.Get("mykey_2")
+	io.WriteString(w, "mykey_1 = "+val+"\n")
+
+	val, _ = rclient.Get("mykey_3")
+	io.WriteString(w, "mykey_1 = "+val+"\n")
 }
 
 func RedisSet(w http.ResponseWriter, req *http.Request) {
