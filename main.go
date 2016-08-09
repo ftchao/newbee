@@ -4,7 +4,6 @@ import (
 	"fmt"
 	"github.com/ftchao/meego"
 	"newbee/controllers"
-	"newbee/helpers/toml"
 )
 
 func main() {
@@ -14,34 +13,17 @@ func main() {
 
 func init() {
 
-	// init_conf()
+	// 读取配置文件
+	meego.LoadConf("conf/main.toml")
 
+	// name := meego.ConfGet("test.name").(string)
+	// fmt.Printf("============== %s \n", name)
+
+	// size := meego.ConfGet("test.size")
+	// fmt.Printf("============== %d \n", size)
+
+	// 路由设置
 	meego.Router("/hello", controllers.HelloServer)
 	meego.Router("/redis/get", controllers.RedisGet)
 	meego.Router("/redis/set", controllers.RedisSet)
-}
-
-// 读取配置文件测试
-func init_conf() {
-
-	conf, err := toml.LoadFile("conf/main.toml")
-	if err != nil {
-		fmt.Println("Error ", err.Error())
-	}
-
-	var key string
-
-	key = "redis.auth.user"
-	fmt.Printf("%s = %s\n", key, conf.Get(key))
-
-	key = "redis.connect.timeout"
-	fmt.Printf("%s = %d\n", key, conf.Get(key))
-
-	redis_server := conf.Get("redis.server").([]interface{})
-	if redis_server != nil {
-		for _, v := range redis_server {
-			fmt.Printf("ar: %s\n", v.(string))
-		}
-	}
-
 }

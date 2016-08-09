@@ -1,76 +1,124 @@
 package redis
 
 import (
-	"fmt"
-	r "gopkg.in/redis.v4"
-	// "math/rand"
-	"time"
+	// "fmt"
+	r "github.com/garyburd/redigo/redis"
+	// "newbee/helper/toml"
+	// "sync"
+	// "time"
 )
+
+// var rpool_ctx sync.One
 
 type RClient struct {
-	client       *r.Client
-	Redisaddr    *[]string
-	conntimeout  int
-	DialTimeout  int
-	ReadTimeout  int
-	WriteTimeout int
+	pool *r.Pool
 }
 
-const (
-	connectTry = 10 // 连接重试次数
-)
+func Connect(server string) *RClient {
 
-func init() {
-	// 读取配置文件
-	fmt.Print("redis  client init\n")
+	// 	// connect to redis server
+	// 	redis_server := config.get()
+	// 	for _, server := range redis_server {
+	// 		return &RClient {
+	// 			pool: getConnect(server)
+	// 		}
+	// 	}
 
-	// PoolClient()
+	return &RClient{}
 }
 
-func NewClient() (rc *RClient) {
-	client := r.NewClient(&r.Options{
-		Addr:     "192.168.255.56:6379",
-		Password: "",
-		DB:       0,
-	})
+// func getConnect(server string) *r.Pool {
 
-	pong, err := client.Ping().Result()
-	if err != nil {
-		fmt.Println(pong, err) // todo write log
-		return nil
-	}
+// 	return r.Pool{
+// 		MaxIdle:     3,
+// 		IdleTimeout: 240 * time.Second,
+// 		Dial: func(r.Conn, error) {
 
-	return &RClient{client: client}
+// 			for i := 0; i < count; i++ {
+// 				c, err := r.Dial("tcp", server)
+// 				if err != nil {
+// 					return nil, err
+// 				}
+// 				return c, err
+// 			}
+
+// 			return nil, errors.New("redispool: cannot connect to any redis server")
+// 		},
+// 	}
+// }
+
+func (r *RClient) Get() string {
+	return "sdfsf"
 }
 
-func (r *RClient) Get(key string) (string, error) {
-	val, err := r.client.Get(key).Result()
-	if err != nil {
-		return "", err
-	}
+// type RClient struct {
+// 	client       *r.Client
+// 	Redisaddr    *[]string
+// 	conntimeout  int
+// 	DialTimeout  int
+// 	ReadTimeout  int
+// 	WriteTimeout int
+// }
 
-	return val, nil
-}
+// const (
+// 	connectTry = 10 // 连接重试次数
+// )
 
-func (r *RClient) Set(key string, value interface{}, expiration time.Duration) *r.StatusCmd {
+// func init() {
+// 	// 读取配置文件
+// 	fmt.Print("redis  client init\n")
 
-	if r == nil {
-		return nil
-	}
+// 	// PoolClient()
+// }
 
-	err := r.client.Set(key, value, expiration)
-	if err != nil {
-		return err
-	}
+// func NewClient() (rc *RClient) {
+// 	client := r.NewClient(&r.Options{
+// 		Addr:     "192.168.255.56:6379",
+// 		Password: "",
+// 		DB:       0,
+// 	})
 
-	return nil
-}
+// 	pong, err := client.Ping().Result()
+// 	if err != nil {
+// 		fmt.Println(pong, err) // todo write log
+// 		return nil
+// 	}
 
-func (r *RClient) SetNX(key string, value interface{}, expiration time.Duration) *r.BoolCmd {
-	err := r.client.SetNX(key, value, expiration)
-	if err != nil {
-		return err
-	}
+// 	return &RClient{client: client}
+// }
 
-	return nil
-}
+// func (r *RClient) Close() {
+// 	r.Close()
+// }
+
+// func (r *RClient) Get(key string) (string, error) {
+// 	val, err := r.client.Get(key).Result()
+// 	if err != nil {
+// 		return "", err
+// 	}
+
+// 	return val, nil
+// }
+
+// func (r *RClient) Set(key string, value interface{}, expiration time.Duration) *r.StatusCmd {
+
+// 	if r == nil {
+// 		return nil
+// 	}
+
+// 	err := r.client.Set(key, value, expiration)
+// 	if err != nil {
+// 		return err
+// 	}
+
+// 	return nil
+// }
+
+// func (r *RClient) SetNX(key string, value interface{}, expiration time.Duration) *r.BoolCmd {
+// 	err := r.client.SetNX(key, value, expiration)
+// 	if err != nil {
+// 		return err
+// 	}
+
+// 	return nil
+// }

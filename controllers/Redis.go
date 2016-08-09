@@ -1,10 +1,12 @@
 package controllers
 
 import (
+	"fmt"
+	"github.com/ftchao/meego"
 	"io"
 	"net/http"
-	"newbee/helpers/redis"
-	"time"
+	// "newbee/helpers/redis"
+	// "time"
 )
 
 func HelloServer(w http.ResponseWriter, req *http.Request) {
@@ -12,27 +14,21 @@ func HelloServer(w http.ResponseWriter, req *http.Request) {
 }
 
 func RedisGet(w http.ResponseWriter, req *http.Request) {
-	rclient := redis.NewClient()
+	name := meego.ConfGet("test.name").(string)
+	io.WriteString(w, "conf mysql.dsn = "+name+"\n")
 
-	var val string
-	val, _ = rclient.Get("mykey_1")
-	io.WriteString(w, "mykey_1 = "+val+"\n")
+	size := meego.ConfGet("test.size")
+	io.WriteString(w, "conf mysql.dsn = "+fmt.Sprintf("%d", size)+"\n")
 
-	val, _ = rclient.Get("mykey_2")
-	io.WriteString(w, "mykey_1 = "+val+"\n")
+	// var key string
 
-	val, _ = rclient.Get("mykey_3")
-	io.WriteString(w, "mykey_1 = "+val+"\n")
+	// rc := redis.Connect()
+
+	// key = "mykey_1"
+	// v, _ := rc.Get(key)
+	// io.WriteString(w, key+": "+v)
 }
 
 func RedisSet(w http.ResponseWriter, req *http.Request) {
-	rclient := redis.NewClient()
 
-	val := "slj2i2oi3r" + time.Now().String()
-	err := rclient.Set("mykey_1", val, 0)
-	if err != nil {
-		io.WriteString(w, "set mykey_1 failed\n")
-	}
-
-	io.WriteString(w, "set mykey_1 ok\n")
 }

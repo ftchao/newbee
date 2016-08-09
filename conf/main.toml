@@ -1,5 +1,9 @@
 # This is a Server Config
 
+[test]
+name = "huangchao"
+size = 18
+
 # mysql config
 [mysql]
 dsn = ['127.0.0.1:123']
