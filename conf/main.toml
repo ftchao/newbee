@@ -3,6 +3,11 @@
 [test]
 name = "huangchao"
 size = 18
+fruits = [
+    "apple",
+    "origin",
+    "bananer"
+]
 
 # mysql config
 [mysql]

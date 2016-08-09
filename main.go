@@ -24,6 +24,7 @@ func init() {
 
 	// 路由设置
 	meego.Router("/hello", controllers.HelloServer)
+	meego.Router("/conf/get", controllers.ConfGet)
 	meego.Router("/redis/get", controllers.RedisGet)
 	meego.Router("/redis/set", controllers.RedisSet)
 }
