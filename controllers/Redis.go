@@ -3,11 +3,9 @@ package controllers
 import (
 	"fmt"
 	"github.com/ftchao/meego"
-	// "github.com/ftchao/meego/redis"
+	"github.com/ftchao/meego/redis"
 	"io"
 	"net/http"
-	// "newbee/helpers/redis"
-	// "time"
 )
 
 func HelloServer(w http.ResponseWriter, req *http.Request) {
@@ -18,6 +16,21 @@ func HelloServer(w http.ResponseWriter, req *http.Request) {
  * Redis test
  */
 func RedisGet(w http.ResponseWriter, req *http.Request) {
+
+	rc := redis.Connect("default")
+
+	v1, err := rc.Get("mykey_1")
+	if err != nil {
+		fmt.Print(err)
+	}
+	io.WriteString(w, "mykey_1:"+v1+"\n")
+
+	v2, err := rc.Get("mykey_1")
+	if err != nil {
+		fmt.Print(err)
+	}
+	io.WriteString(w, "mykey_1:"+v2+"\n")
+
 	io.WriteString(w, "hello, world!\n")
 }
 
